@@ -60,4 +60,22 @@
     (credit-card (customer-email "bob@mail.com") (bank "Bank B") (group "Group 2") (card-number "2345-6789-0123-4567") (card-type "MasterCard") (expiration-date "11/24") (cvv "456") (cardholder-name "Bob Brown"))
     (credit-card (customer-email "diana@mail.com") (bank "Bank C") (group "Group 3") (card-number "3456-7890-1234-5678") (card-type "American Express") (expiration-date "10/23") (cvv "789") (cardholder-name "Diana Prince"))
     (credit-card (customer-email "fiona@mail.com") (bank "Bank D") (group "Group 4") (card-number "4567-8901-2345-6789") (card-type "Discover") (expiration-date "09/22") (cvv "012") (cardholder-name "Fiona Apple"))
-    (credit-card) (customer-email "tyler@mail.com") (bank "Bank E") (group "Group 5") (card-number "5678-9012-3456-7890") (card-type "Visa") (expiration-date "08/21") (cvv "345") (cardholder-name "Tyler Joseph"))
+    (credit-card (customer-email "tyler@mail.com") (bank "Bank E") (group "Group 5") (card-number "5678-9012-3456-7890") (card-type "Visa") (expiration-date "08/21") (cvv "345") (cardholder-name "Tyler Joseph")))
+
+(deffacts debit-cards
+    (debit-card (customer-email "john@mail.com") (bank "Bank F") (group "Group 6") (card-number "6789-0123-4567-8901") (card-type "MasterCard") (expiration-date "07/20") (cvv "678") (cardholder-name "John Doe"))
+    (debit-card (customer-email "alice@mail.com") (bank "Bank G") (group "Group 7") (card-number "7890-1234-5678-9012") (card-type "American Express") (expiration-date "06/19") (cvv "901") (cardholder-name "Alice Johnson"))
+    (debit-card (customer-email "charlie@mail.com") (bank "Bank H") (group "Group 8") (card-number "8901-2345-6789-0123") (card-type "Discover") (expiration-date "05/18") (cvv "234") (cardholder-name "Charlie Davis"))
+    (debit-card (customer-email "ethan@mail.com") (bank "Bank I") (group "Group 9") (card-number "9012-3456-7890-1234") (card-type "Visa") (expiration-date "04/17") (cvv "567") (cardholder-name "Ethan Hunt"))
+    (debit-card (customer-email "george@mail.com") (bank "Bank J") (group "Group 10") (card-number "0123-4567-8901-2345") (card-type "MasterCard") (expiration-date "03/16") (cvv "890") (cardholder-name "George Clooney")))
+
+(deffacts orders
+    (order (order-id 1) (customer-email "jane@mail.com") (order-date "2023-10-01") (delivery-date "2023-10-05"))
+    (order (order-id 2) (customer-email "tyler@mail.com") (order-date "2023-10-02") (delivery-date "2023-10-06"))
+    (order (order-id 3) (customer-email "alice@mail.com") (order-date "2023-10-03") (delivery-date "2023-10-07")))
+
+(deffacts order-items
+    (order-item (order-id 1) (product-id 1) (product-type "smartphone") (quantity 4) (price-per-unit 999))
+    (order-item (order-id 2) (product-id 12) (product-type "computer") (quantity 1) (price-per-unit 1299))
+    (order-item (order-id 3) (product-id 2) (product-type "smartphone") (quantity 4) (price-per-unit 799))
+)

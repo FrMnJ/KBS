@@ -46,8 +46,7 @@
     (slot product-id)
     (slot product-type)
     (slot quantity)
-    (slot price-per-unit)
-    (slot total-price))
+    (slot price-per-unit))
 
 (deftemplate credit-card
     (slot customer-email)
@@ -73,9 +72,16 @@
 (deftemplate discount-product
     (slot product-id)
     (slot percentage)
+    (slot customer-email)
 )
 
 (deftemplate discount-type-product
     (slot product-type)
     (slot discount-type)
+    (slot customer-email)
+)
+
+(deftemplate recommendation
+    (slot customer-email)
+    (slot product-id)
 )
