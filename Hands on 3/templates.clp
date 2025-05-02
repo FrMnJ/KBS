@@ -85,3 +85,8 @@
     (slot customer-email)
     (slot product-id)
 )
+
+(deftemplate coupon
+    (slot customer-email)
+    (slot value)
+)

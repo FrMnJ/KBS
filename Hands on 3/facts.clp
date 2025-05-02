@@ -71,8 +71,8 @@
 
 (deffacts orders
     (order (order-id 1) (customer-email "jane@mail.com") (order-date "2023-10-01") (delivery-date "2023-10-05"))
-    (order (order-id 2) (customer-email "tyler@mail.com") (order-date "2023-10-02") (delivery-date "2023-10-06"))
-    (order (order-id 3) (customer-email "alice@mail.com") (order-date "2023-10-03") (delivery-date "2023-10-07")))
+    (order (order-id 2) (customer-email "alice@mail.com") (order-date "2023-10-02") (delivery-date "2023-10-06"))
+    (order (order-id 3) (customer-email "tyler@mail.com") (order-date "2023-10-03") (delivery-date "2023-10-07")))
 
 (deffacts order-items
     (order-item (order-id 1) (product-id 1) (product-type "smartphone") (quantity 4) (price-per-unit 999))
