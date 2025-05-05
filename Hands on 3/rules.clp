@@ -1,10 +1,11 @@
-(defrule iphone-airpods
+(defrule iphone-airpods-retail
     (customer (name ?name) (email ?email) (phone ?phone) (address ?address))
     (order (order-id ?order-id) (customer-email ?email) (order-date ?order-date) (delivery-date ?delivery-date))
-    (order-item (order-id ?order-id) (product-id 1) (product-type "smartphone") (quantity ?quantity&:(<= ?quantity 5)) (price-per-unit ?price-per-unit))
+    (order-item (order-id ?order-id) (product-id 1) (product-type "smartphone") (quantity ?quantity&:(<= ?quantity 10)) (price-per-unit ?price-per-unit))
     (smartphone (id 1) (brand "Apple") (model "iPhone 14") (price ?price) (storage "128GB") (ram "4GB") (stock ?stock))
     =>
     (if (>= ?stock ?quantity) then
+        (printout t "------------------------------" crlf)
         (printout t "Customer: " ?name crlf)
         (printout t "Email: " ?email crlf)
         (printout t "Phone: " ?phone crlf)
@@ -16,17 +17,21 @@
         (assert (recommendation (customer-email ?email) (product-id 11)))
         (printout t "Discount 10% on AirPods Pro" crlf)
         (assert (discount-product (product-id 21) (percentage 10) (customer-email ?email)))
+        (printout t "------------------------------" crlf)
     else
+        (printout t "------------------------------" crlf)
         (printout t "Stock not available for iPhone 14 Black 128GB 4GB" crlf))
+        (printout t "------------------------------" crlf)
 )
 
-(defrule iphone-airpods
+(defrule iphone-airpods-wholesaler
     (customer (name ?name) (email ?email) (phone ?phone) (address ?address))
     (order (order-id ?order-id) (customer-email ?email) (order-date ?order-date) (delivery-date ?delivery-date))
-    (order-item (order-id ?order-id) (product-id 1) (product-type "smartphone") (quantity ?quantity&:(> ?quantity 5)) (price-per-unit ?price-per-unit))
-    (smartphone (id 1) (brand "Apple") (model "iPhone 14") (price ?price) (color "Black") (storage "128GB") (ram "4GB") (stock ?stock))
+    (order-item (order-id ?order-id) (product-id 1) (product-type "smartphone") (quantity ?quantity&:(> ?quantity 10)) (price-per-unit ?price-per-unit))
+    (smartphone (id 1) (brand "Apple") (model "iPhone 14") (price ?price) (storage "128GB") (ram "4GB") (stock ?stock))
     =>
     (if (>= ?stock ?quantity) then
+        (printout t "------------------------------" crlf)
         (printout t "Customer: " ?name crlf)
         (printout t "Email: " ?email crlf)
         (printout t "Phone: " ?phone crlf)
@@ -36,19 +41,21 @@
         (assert (recommendation (customer-email ?email) (product-id 21)))
         (printout t "Recommended Product: Mackbook Pro" crlf)
         (assert (recommendation (customer-email ?email) (product-id 11)))
-        (printout t "Discount 30% on AirPods Pro" crlf)
-        (assert (discount-product (product-id 21) (percentage 30) (customer-email ?email)))
+        (printout t "Coupon: $500 in any purchase" crlf)
+        (assert (coupon (customer-email ?email) (value 500)))
+        (printout t "------------------------------" crlf)
     else
         (printout t "Stock not available for iPhone 14 Black 128GB 4GB" crlf))
 )
 
-(defrule samsung-galaxy-buds
+(defrule samsung-galaxy-buds-retail
     (customer (name ?name) (email ?email) (phone ?phone) (address ?address))
     (order (order-id ?order-id) (customer-email ?email) (order-date ?order-date) (delivery-date ?delivery-date))
-    (order-item (order-id ?order-id) (product-id 2) (product-type "smartphone") (quantity ?quantity&:(<= ?quantity 5)) (price-per-unit ?price-per-unit))
+    (order-item (order-id ?order-id) (product-id 2) (product-type "smartphone") (quantity ?quantity&:(<= ?quantity 10)) (price-per-unit ?price-per-unit))
     (smartphone (id 2) (brand "Samsung") (model "Galaxy S22") (price ?price) (color "White") (storage "256GB") (ram "8GB") (stock ?stock))
     =>
     (if (>= ?stock ?quantity) then
+        (printout t "------------------------------" crlf)
         (printout t "Email: " ?email crlf)
         (printout t "Phone: " ?phone crlf)
         (printout t "Address: " ?address crlf)
@@ -57,17 +64,21 @@
         (assert (recommendation (customer-email ?email) (product-id 22)))
         (printout t "Discount 20% on Galaxy Buds Pro" crlf)
         (assert (discount-product (product-id 22) (percentage 20) (customer-email ?email)))
+        (printout t "------------------------------" crlf)
     else
+        (printout t "------------------------------" crlf)
         (printout t "Stock not available for Galaxy S22 White 256GB 8GB" crlf))
+        (printout t "------------------------------" crlf)
 )
 
-(defrule samsung-galaxy-buds
+(defrule samsung-galaxy-buds-wholesaler
     (customer (name ?name) (email ?email) (phone ?phone) (address ?address))
     (order (order-id ?order-id) (customer-email ?email) (order-date ?order-date) (delivery-date ?delivery-date))
-    (order-item (order-id ?order-id) (product-id 2) (product-type "smartphone") (quantity ?quantity&:(> ?quantity 5)) (price-per-unit ?price-per-unit))
+    (order-item (order-id ?order-id) (product-id 2) (product-type "smartphone") (quantity ?quantity&:(> ?quantity 10)) (price-per-unit ?price-per-unit))
     (smartphone (id 2) (brand "Samsung") (model "Galaxy S22") (price ?price) (color "White") (storage "256GB") (ram "8GB") (stock ?stock))
     =>
     (if (>= ?stock ?quantity) then
+        (printout t "------------------------------" crlf)
         (printout t "Customer: " ?name crlf)
         (printout t "Email: " ?email crlf)
         (printout t "Phone: " ?phone crlf)
@@ -76,36 +87,62 @@
         (printout t "Stock Galaxy S21 White 256GB 8GB: " (- ?stock ?quantity) crlf)
         (printout t "Recommended Product: Galaxy Buds Pro" crlf)
         (assert (recommendation (customer-email ?email) (product-id 22)))
-        (printout t "Discount 50% on Galaxy Buds Pro" crlf)
-        (assert (discount-product (product-id 22) (percentage 50) (customer-email ?email)))
+        (printout t "Recommended Product: Galaxy Watch 4" crlf)
+        (assert (recommendation (customer-email ?email) (product-id 31)))
+        (printout t "Coupon: $1000 in any purchase" crlf)
+        (assert (coupon (customer-email ?email) (value 1000)))
+        (printout t "------------------------------" crlf)
     else
+        (printout t "------------------------------" crlf)
         (printout t "Stock not available for Galaxy S22 Blue 256GB 8GB" crlf))
+        (printout t "------------------------------" crlf)
 )
 
 
-(defrule dell-american-express-coupon-200
+(defrule dell-american-express-coupon-200-retail
     (customer (name ?name) (email ?email) (phone ?phone) (address ?address))
     (order (order-id ?order-id) (customer-email ?email) (order-date ?order-date) (delivery-date ?delivery-date))
-    (order-item (order-id ?order-id) (product-id 12) (product-type "laptop") (quantity ?quantity&:(<= ?quantity 5)) (price-per-unit ?price-per-unit))
+    (order-item (order-id ?order-id) (product-id 12) (product-type "computer") (quantity ?quantity&:(<= ?quantity 10)) (price-per-unit ?price-per-unit))
     (computer (id 12) (brand "Dell") (model "XPS 13") (price ?price) (color "Black") (storage "256GB SSD") (ram "8GB") (stock ?stock))
     (debit-card (customer-email ?email) (card-type "American Express")) 
     =>
     (if (>= ?stock ?quantity) then
+        (printout t "------------------------------" crlf)
         (printout t "Customer: " ?name crlf)
         (printout t "Email: " ?email crlf)
         (printout t "Phone: " ?phone crlf)
         (printout t "Address: " ?address crlf)
         ;(computer (id 12) (brand "Dell") (model "XPS 13") (price 1299) (color "Black") (storage "256GB SSD") (ram "8GB") (stock 10))
         (printout t "Stock Dell XPS 13 Black 256GB SSD 8GB: " (- ?stock ?quantity) crlf)
-        ;(accessory (id 23) (brand "Sony") (model "WH-1000XM4") (price 349) (color "Black") (type "Headphones") (stock 10))
+        ;(accessory (id 23) (brand "Sony") (model "WH-1000XM4") (price 349) (color "Black") (type "headphones") (stock 10))
         (printout t "Recommended Product: WH-1000XM4 Headphones" crlf)
         (assert (recommendation (customer-email ?email) (product-id 23)))
-        ;(accessory (id 28) (brand "Logitech") (model "G502 HERO") (price 49) (color "Black") (type "Mouse") (stock 30))
+        ;(accessory (id 28) (brand "Logitech") (model "G502 HERO") (price 49) (color "Black") (type "mouse") (stock 30))
         (printout t "Recommended Product: G502 HERO Mouse" crlf)
         (assert (recommendation (customer-email ?email) (product-id 28)))
-        (printout t "Purcharse with American Express" crlf)
-        (printout t "Coupon: $200 in any purchase" crlf)
-        (assert (coupon (customer-email ?email) (value 200)))
+        (printout t "Purchase with American Express" crlf)
+        (printout t "Coupon: $100 in any purchase" crlf)
+        (assert (coupon (customer-email ?email) (value 50)))
+        (printout t "------------------------------" crlf)
     else 
+        (printout t "------------------------------" crlf)
         (printout t "Stock not available for Dell XPS 13 Black 256GB SSD 8GB" crlf))
+        (printout t "------------------------------" crlf)
+)
+
+(defrule apply-discount 
+   (discount-product (product-id ?product-id) (percentage ?percentage) (customer-email ?email))
+   (order-item (order-id ?order-id) (product-id ?product-id) (product-type ?product-type) (quantity ?quantity) (price-per-unit ?price-per-unit))
+   (customer (email ?email) (name ?name) (phone ?phone) (address ?address))
+   => 
+   (printout t "------------------------------" crlf)
+   (printout t "Customer: " ?name crlf)
+   (printout t "Email: " ?email crlf)
+   (printout t "Phone: " ?phone crlf)
+   (printout t "Address: " ?address crlf)
+   (printout t "Applying discount of " ?percentage "% on product ID: " ?product-id crlf)
+   (printout t "Original Price: $" ?price-per-unit crlf)
+   (printout t "To order ID: " ?order-id crlf)  
+   (printout t "Discounted Price: $" (- ?price-per-unit (* (/ ?percentage 100) ?price-per-unit)) crlf)
+   (printout t "------------------------------" crlf)
 )
