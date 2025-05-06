@@ -40,6 +40,7 @@
     (accessory (id 33) (brand "Garmin") (model "Forerunner 245") (price 299) (color "Black") (type "smartwatch") (stock 8))
     (accessory (id 34) (brand "Fitbit") (model "Versa 3") (price 229) (color "Pink") (type "smartwatch") (stock 12))
     (accessory (id 35) (brand "Fossil") (model "Gen 5") (price 299) (color "Black") (type "smartwatch") (stock 6))
+    (accessory (id 36) (brand "Veneno") (model "Crocodile") (price 50) (color "Green") (type "phone case") (stock 20))
 )
 
 (deffacts customers

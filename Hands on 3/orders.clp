@@ -4,6 +4,8 @@
     (order (order-id 3) (customer-email "tyler@mail.com") (order-date "2023-10-03") (delivery-date "2023-10-07") (method-payment "credit-card"))
     (order (order-id 4) (customer-email "george@mail.com") (order-date "2023-10-04") (delivery-date "2023-10-08") (method-payment "debit-card"))
     (order (order-id 5) (customer-email "ethan@mail.com") (order-date "2023-10-05") (delivery-date "2023-10-09") (method-payment "cash"))
+    (order (order-id 6) (customer-email "bob@mail.com") (order-date "2023-10-06") (delivery-date "2023-10-10") (method-payment "cash"))
+    (order (order-id 7) (customer-email "charlie@mail.com") (order-date "2023-10-07") (delivery-date "2023-10-11") (method-payment "debit-card"))
 )
 
 (deffacts order-items
@@ -24,4 +26,8 @@
     ; Apply discount of 15% to product id 27
     ; (accessory (id 27) (brand "Corsair") (model "K70 RGB MK.2") (price 159) (color "Black") (type "keyboard") (stock 10))
     (order-item (order-id 5) (product-id 27) (product-type "accessories") (quantity 1) (price-per-unit 159))
+    ;(computer (id 14) (brand "Lenovo") (model "ThinkPad X1 Carbon") (price 1499) (color "Black") (storage "1TB SSD") (ram "16GB") (stock 6))
+    (order-item (order-id 6) (product-id 14) (product-type "computer") (quantity 1) (price-per-unit 1499))
+    ;(accessory (id 36) (brand "Veneno") (model "Crocodile") (price 50) (color "Green") (type "phone case") (stock 20))
+    (order-item (order-id 7) (product-id 36) (product-type "accessories") (quantity 15) (price-per-unit 50))
 )
