@@ -39,7 +39,8 @@
     (slot order-id)
     (slot customer-email)
     (slot order-date)
-    (slot delivery-date))
+    (slot delivery-date)
+    (slot method-payment))
 
 (deftemplate order-item
     (slot order-id)

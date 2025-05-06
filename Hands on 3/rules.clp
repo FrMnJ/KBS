@@ -6,6 +6,7 @@
     =>
     (if (>= ?stock ?quantity) then
         (printout t "------------------------------" crlf)
+        (printout t "Retail" crlf)
         (printout t "Customer: " ?name crlf)
         (printout t "Email: " ?email crlf)
         (printout t "Phone: " ?phone crlf)
@@ -32,6 +33,7 @@
     =>
     (if (>= ?stock ?quantity) then
         (printout t "------------------------------" crlf)
+        (printout t "Wholesaler" crlf)
         (printout t "Customer: " ?name crlf)
         (printout t "Email: " ?email crlf)
         (printout t "Phone: " ?phone crlf)
@@ -56,6 +58,7 @@
     =>
     (if (>= ?stock ?quantity) then
         (printout t "------------------------------" crlf)
+        (printout t "Retail" crlf)
         (printout t "Email: " ?email crlf)
         (printout t "Phone: " ?phone crlf)
         (printout t "Address: " ?address crlf)
@@ -79,6 +82,7 @@
     =>
     (if (>= ?stock ?quantity) then
         (printout t "------------------------------" crlf)
+        (printout t "Wholesaler" crlf)
         (printout t "Customer: " ?name crlf)
         (printout t "Email: " ?email crlf)
         (printout t "Phone: " ?phone crlf)
@@ -101,13 +105,14 @@
 
 (defrule dell-american-express-coupon-200-retail
     (customer (name ?name) (email ?email) (phone ?phone) (address ?address))
-    (order (order-id ?order-id) (customer-email ?email) (order-date ?order-date) (delivery-date ?delivery-date))
+    (order (order-id ?order-id) (customer-email ?email) (order-date ?order-date) (delivery-date ?delivery-date) (method-payment "credit-card"))
     (order-item (order-id ?order-id) (product-id 12) (product-type "computer") (quantity ?quantity&:(<= ?quantity 10)) (price-per-unit ?price-per-unit))
     (computer (id 12) (brand "Dell") (model "XPS 13") (price ?price) (color "Black") (storage "256GB SSD") (ram "8GB") (stock ?stock))
     (debit-card (customer-email ?email) (card-type "American Express")) 
     =>
     (if (>= ?stock ?quantity) then
         (printout t "------------------------------" crlf)
+        (printout t "Retail" crlf)
         (printout t "Customer: " ?name crlf)
         (printout t "Email: " ?email crlf)
         (printout t "Phone: " ?phone crlf)
