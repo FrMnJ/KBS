@@ -135,6 +135,78 @@
         (printout t "------------------------------" crlf)
 )
 
+(defrule bose-discount-accessories-retail
+    ;(accessory (id 24) (brand "Bose") (model "QuietComfort 35 II") (price 299) (color "Silver") (type "headphones") (stock 8))
+    (customer (name ?name) (email ?email) (phone ?phone) (address ?address))
+    (order (order-id ?order-id) (customer-email ?email) (order-date ?order-date) (delivery-date ?delivery-date))
+    (order-item (order-id ?order-id) (product-id 24) (product-type "accessories") (quantity ?quantity&:(<= ?quantity 10)) (price-per-unit ?price-per-unit))
+    (accessory (id 24) (brand "Bose") (model "QuietComfort 35 II") (price ?price) (color "Silver") (type "headphones") (stock ?stock))
+    =>
+    (if (>= ?stock ?quantity) then
+        (printout t "------------------------------" crlf)
+        (printout t "Retail" crlf)
+        (printout t "Customer: " ?name crlf)
+        (printout t "Email: " ?email crlf)
+        (printout t "Phone: " ?phone crlf)
+        (printout t "Address: " ?address crlf)
+        (printout t "Stock Bose QuietComfort 35 II Silver: " (- ?stock ?quantity) crlf)
+        ; (computer (id 15) (brand "Asus") (model "ZenBook 14") (price 1199) (color "Blue") (storage "512GB SSD") (ram "16GB") (stock 7))
+        (printout t "Recommended Product: ZenBook 14" crlf)
+        (assert (recommendation (customer-email ?email) (product-id 15)))
+        (printout t "Discount 20% on accessories" crlf)
+        (assert (discount-type-product (product-type "accessories") (percentage 20) (customer-email ?email)))
+        (printout t "------------------------------" crlf)
+    else
+        (printout t "------------------------------" crlf)
+        (printout t "Stock not available for Bose QuietComfort 35 II Silver" crlf)
+        (printout t "------------------------------" crlf))
+)
+
+(defrule bose-coupon-accessories-wholesaler
+    ;(accessory (id 24) (brand "Bose") (model "QuietComfort 35 II") (price 299) (color "Silver") (type "headphones") (stock 8))
+    (customer (name ?name) (email ?email) (phone ?phone) (address ?address))
+    (order (order-id ?order-id) (customer-email ?email) (order-date ?order-date) (delivery-date ?delivery-date))
+    (order-item (order-id ?order-id) (product-id 24) (product-type "accessories") (quantity ?quantity&:(> ?quantity 10)) (price-per-unit ?price-per-unit))
+    (accessory (id 24) (brand "Bose") (model "QuietComfort 35 II") (price ?price) (color "Silver") (type "headphones") (stock ?stock))
+    =>
+    (if (>= ?stock ?quantity) then
+        (printout t "------------------------------" crlf)
+        (printout t "Wholesaler" crlf)
+        (printout t "Customer: " ?name crlf)
+        (printout t "Email: " ?email crlf)
+        (printout t "Phone: " ?phone crlf)
+        (printout t "Address: " ?address crlf)
+        (printout t "Stock Bose QuietComfort 35 II Silver: " (- ?stock ?quantity) crlf)
+        ; (computer (id 15) (brand "Asus") (model "ZenBook 14") (price 1199) (color "Blue") (storage "512GB SSD") (ram "16GB") (stock 7))
+        (printout t "Recommended Product: ZenBook 14" crlf)
+        (assert (recommendation (customer-email ?email) (product-id 15)))
+        (printout t "Coupon: $200 in any purchase" crlf)
+        (assert (coupon (customer-email ?email) (value 200)))
+        (printout t "------------------------------" crlf)
+    else
+        (printout t "------------------------------" crlf)
+        (printout t "Stock not available for Bose QuietComfort 35 II Silver" crlf)
+        (printout t "------------------------------" crlf))
+)
+
+(defrule apply-discount-on-accessories
+   (discount-type-product (product-type "accessories") (percentage ?percentage) (customer-email ?email))
+   (order (order-id ?order-id) (customer-email ?email) (order-date ?order-date) (delivery-date ?delivery-date))
+   (order-item (order-id ?order-id) (product-id ?product-id) (product-type "accessories") (quantity ?quantity) (price-per-unit ?price-per-unit))
+   (customer (email ?email) (name ?name) (phone ?phone) (address ?address))
+   => 
+   (printout t "------------------------------" crlf)
+   (printout t "Customer: " ?name crlf)
+   (printout t "Email: " ?email crlf)
+   (printout t "Phone: " ?phone crlf)
+   (printout t "Address: " ?address crlf)
+   (printout t "Applying discount of " ?percentage "% on product ID: " ?product-id crlf)
+   (printout t "Original Price: $" ?price-per-unit crlf)
+   (printout t "To order ID: " ?order-id crlf)  
+   (printout t "Discounted Price: $" (- ?price-per-unit (* (/ ?percentage 100) ?price-per-unit)) crlf)
+   (printout t "------------------------------" crlf)
+)
+
 (defrule apply-discount 
    (discount-product (product-id ?product-id) (percentage ?percentage) (customer-email ?email))
    (order-item (order-id ?order-id) (product-id ?product-id) (product-type ?product-type) (quantity ?quantity) (price-per-unit ?price-per-unit))

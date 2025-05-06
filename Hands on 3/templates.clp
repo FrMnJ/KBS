@@ -78,7 +78,7 @@
 
 (deftemplate discount-type-product
     (slot product-type)
-    (slot discount-type)
+    (slot percentage)
     (slot customer-email)
 )
 
