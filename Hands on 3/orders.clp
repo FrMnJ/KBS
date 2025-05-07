@@ -6,6 +6,7 @@
     (order (order-id 5) (customer-email "ethan@mail.com") (order-date "2023-10-05") (delivery-date "2023-10-09") (method-payment "cash"))
     (order (order-id 6) (customer-email "bob@mail.com") (order-date "2023-10-06") (delivery-date "2023-10-10") (method-payment "cash"))
     (order (order-id 7) (customer-email "charlie@mail.com") (order-date "2023-10-07") (delivery-date "2023-10-11") (method-payment "debit-card"))
+    (order (order-id 8) (customer-email "tyler@mail.com") (order-date "2023-10-08") (delivery-date "2023-10-12") (method-payment "credit-card"))
 )
 
 (deffacts order-items
@@ -30,4 +31,9 @@
     (order-item (order-id 6) (product-id 14) (product-type "computer") (quantity 1) (price-per-unit 1499))
     ;(accessory (id 36) (brand "Veneno") (model "Crocodile") (price 50) (color "Green") (type "phone case") (stock 20))
     (order-item (order-id 7) (product-id 36) (product-type "accessories") (quantity 15) (price-per-unit 50))
+    ; (console (id 41) (brand "Microsoft") (model "Xbox Series X") (price 499) (color "Black") (storage "1TB SSD") (ram "16GB") (stock 10))
+    (order-item (order-id 8) (product-id 41) (product-type "console") (quantity 1) (price-per-unit 499))
+    ; Discount for forza horizon 5 15%
+    ; (videogame (id 56) (title "Forza Horizon 5") (platform "Xbox Series X") (price 59.99) (stock 14))
+    (order-item (order-id 8) (product-id 56) (product-type "videogame") (quantity 1) (price-per-unit 59.99))
 )

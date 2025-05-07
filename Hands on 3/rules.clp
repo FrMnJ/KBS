@@ -338,3 +338,132 @@
         (printout t "------------------------------" crlf)
         (printout t "Stock not available for Veneno Crocodile Green" crlf)
         (printout t "------------------------------" crlf)))
+
+(defrule ps5-discount-dualshock-retail
+    (customer (name ?name) (email ?email) (phone ?phone) (address ?address))
+    (order (order-id ?order-id) (customer-email ?email) (order-date ?order-date) (delivery-date ?delivery-date))
+    ; (console (id 40) (brand "Sony") (model "PlayStation 5") (price 499) (color "White") (storage "825GB SSD") (ram "16GB") (stock 5))
+    (order-item (order-id ?order-id) (product-id 40) (product-type "console") (quantity ?quantity&:(<= ?quantity 10)) (price-per-unit ?price-per-unit))
+    (console (id 40) (brand "Sony") (model "PlayStation 5") (price ?price) (color "White") (storage "825GB SSD") (ram "16GB") (stock ?stock))
+    =>
+    (if (>= ?stock ?quantity) then
+        (printout t "------------------------------" crlf)
+        (printout t "Retail" crlf)
+        (printout t "Customer: " ?name crlf)
+        (printout t "Email: " ?email crlf)
+        (printout t "Phone: " ?phone crlf)
+        (printout t "Address: " ?address crlf)
+        (printout t "Stock Sony PlayStation 5 White 825GB SSD 16GB: " (- ?stock ?quantity) crlf)
+        ;(accessory (id 37) (brand "PlayStation") (model "DualShock 4") (price 59) (color "Black") (type "controller") (stock 15))
+        (printout t "Recommended Product: DualShock 4" crlf)
+        (assert (recommendation (customer-email ?email) (product-id 37)))
+        (printout t "Discount 10% on DualShock 4" crlf)
+        (assert (discount-product (product-id 37) (percentage 10) (customer-email ?email)))
+    else
+        (printout t "------------------------------" crlf)
+        (printout t "Stock not available for Sony PlayStation 5 White 825GB SSD 16GB" crlf)
+        (printout t "------------------------------" crlf))
+)
+
+(defrule ps5-coupon-wholesaler
+    (customer (name ?name) (email ?email) (phone ?phone) (address ?address))
+    (order (order-id ?order-id) (customer-email ?email) (order-date ?order-date) (delivery-date ?delivery-date))
+    ; (console (id 40) (brand "Sony") (model "PlayStation 5") (price 499) (color "White") (storage "825GB SSD") (ram "16GB") (stock 5))
+    (order-item (order-id ?order-id) (product-id 40) (product-type "console") (quantity ?quantity&:(> ?quantity 10)) (price-per-unit ?price-per-unit))
+    (console (id 40) (brand "Sony") (model "PlayStation 5") (price ?price) (color "White") (storage "825GB SSD") (ram "16GB") (stock ?stock))
+    =>
+    (if (>= ?stock ?quantity) then
+        (printout t "------------------------------" crlf)
+        (printout t "Wholesaler" crlf)
+        (printout t "Customer: " ?name crlf)
+        (printout t "Email: " ?email crlf)
+        (printout t "Phone: " ?phone crlf)
+        (printout t "Address: " ?address crlf)
+        (printout t "Stock Sony PlayStation 5 White 825GB SSD 16GB: " (- ?stock ?quantity) crlf)
+        ;(accessory (id 37) (brand "PlayStation") (model "DualShock 4") (price 59) (color "Black") (type "controller") (stock 15))
+        (printout t "Recommended Product: DualShock 4" crlf)
+        (assert (recommendation (customer-email ?email) (product-id 37)))
+        (printout t "Coupon: $1000 in any purchase" crlf)
+        (assert (coupon (customer-email ?email) (value 100)))
+    else
+        (printout t "------------------------------" crlf)
+        (printout t "Stock not available for Sony PlayStation 5 White 825GB SSD 16GB" crlf)
+        (printout t "------------------------------" crlf))
+)
+
+(defrule xbox-forza-horizon-discount-retail
+    ; (console (id 41) (brand "Microsoft") (model "Xbox Series X") (price 499) (color "Black") (storage "1TB SSD") (ram "16GB") (stock 10))
+    (customer (name ?name) (email ?email) (phone ?phone) (address ?address))
+    (order (order-id ?order-id) (customer-email ?email) (order-date ?order-date) (delivery-date ?delivery-date))
+    (order-item (order-id ?order-id) (product-id 41) (product-type "console") (quantity ?quantity&:(<= ?quantity 10)) (price-per-unit ?price-per-unit))
+    (console (id 41) (brand "Microsoft") (model "Xbox Series X") (price ?price) (color "Black") (storage "1TB SSD") (ram "16GB") (stock ?stock))
+    =>
+    ; (videogame (id 56) (title "Forza Horizon 5") (platform "Xbox Series X") (price 59.99) (stock 14))
+    (if (>= ?stock ?quantity) then
+    (printout t "------------------------------" crlf)
+    (printout t "Retail" crlf)
+    (printout t "Customer: " ?name crlf)
+    (printout t "Email: " ?email crlf)
+    (printout t "Phone: " ?phone crlf)
+    (printout t "Address: " ?address crlf)
+    (printout t "Stock Microsoft Xbox Series X Black 1TB SSD 16GB: " (- ?stock ?quantity) crlf)
+    (printout t "Recommended Product: Forza Horizon 5" crlf)
+    (assert (recommendation (customer-email ?email) (product-id 56)))
+    (printout t "Discount 15% on Forza Horizon 5" crlf)
+    (assert (discount-product (product-id 56) (percentage 15) (customer-email ?email)))
+    (printout t "------------------------------" crlf)
+    else
+        (printout t "------------------------------" crlf)
+        (printout t "Stock not available for Microsoft Xbox Series X Black 1TB SSD 16GB" crlf)
+        (printout t "------------------------------" crlf)))
+
+(defrule mario-kart-super-smash-recommendation-retail
+    (customer (name ?name) (email ?email) (phone ?phone) (address ?address))
+    (order (order-id ?order-id) (customer-email ?email) (order-date ?order-date) (delivery-date ?delivery-date))
+    ; (videogame (id 72) (title "Mario Kart 8 Deluxe") (platform "Nintendo Switch") (price 59.99) (stock 25))
+    (order-item (order-id ?order-id) (product-id 72) (product-type "videogame") (quantity ?quantity&:(<= ?quantity 10)) (price-per-unit ?price-per-unit))
+    (videogame (id 72) (title "Mario Kart 8 Deluxe") (platform "Nintendo Switch") (price ?price) (stock ?stock))
+    =>
+    ;(videogame (id 73) (title "Super Smash Bros. Ultimate") (platform "Nintendo Switch") (price 59.99) (stock 20))
+    (if (>= ?stock ?quantity) then
+        (printout t "------------------------------" crlf)
+        (printout t "Retail" crlf)
+        (printout t "Customer: " ?name crlf)
+        (printout t "Email: " ?email crlf)
+        (printout t "Phone: " ?phone crlf)
+        (printout t "Address: " ?address crlf)
+        (printout t "Stock Nintendo Switch Mario Kart 8 Deluxe: " (- ?stock ?quantity) crlf)
+        (printout t "Recommended Product: Super Smash Bros. Ultimate" crlf)
+        (assert (recommendation (customer-email ?email) (product-id 73)))
+    else
+        (printout t "------------------------------" crlf)
+        (printout t "Stock not available for Nintendo Switch Mario Kart 8 Deluxe" crlf)
+        (printout t "------------------------------" crlf)
+))
+
+(defrule fifa25-mastercard-discount-nba2k25-retail
+    (customer (name ?name) (email ?email) (phone ?phone) (address ?address))
+    (order (order-id ?order-id) (customer-email ?email) (order-date ?order-date) (delivery-date ?delivery-date) (method-payment "debit-card"))
+    ; (videogame (id 66) (title "FIFA 25") (platform "PlayStation 5") (price 59.99) (stock 25))
+    (order-item (order-id ?order-id) (product-id 74) (product-type "videogame") (quantity ?quantity&:(<= ?quantity 10)) (price-per-unit ?price-per-unit))
+    (videogame (id 74) (title "FIFA 25") (platform "PlayStation 5") (price ?price) (stock ?stock))
+    (debit-card (customer-email ?email) (card-type "MasterCard"))
+    =>
+    (if (>= ?stock ?quantity) then
+        (printout t "------------------------------" crlf)
+        (printout t "Retail" crlf)
+        (printout t "Customer: " ?name crlf)
+        (printout t "Email: " ?email crlf)
+        (printout t "Phone: " ?phone crlf)
+        (printout t "Address: " ?address crlf)
+        (printout t "Stock FIFA 25 PlayStation 5: " (- ?stock ?quantity) crlf)
+        ;(videogame (id 67) (title "NBA 2K25") (platform "Xbox Series X") (price 59.99) (stock 15))
+        (printout t "Recommended Product: NBA 2K25" crlf)
+        (assert (recommendation (customer-email ?email) (product-id 67)))
+        (printout t "Discount 20% on NBA 2K25" crlf)
+        (assert (discount-product (product-id 67) (percentage 20) (customer-email ?email)))
+        (printout t "------------------------------" crlf)
+    else
+        (printout t "------------------------------" crlf)
+        (printout t "Stock not available for FIFA 25 PlayStation 5" crlf)
+        (printout t "------------------------------" crlf)))

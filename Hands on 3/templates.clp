@@ -91,3 +91,20 @@
     (slot customer-email)
     (slot value)
 )
+
+(deftemplate videogame
+    (slot id)
+    (slot title)
+    (slot platform)
+    (slot price)
+    (slot stock))
+
+(deftemplate console
+    (slot id)
+    (slot brand)
+    (slot model)
+    (slot price)
+    (slot color)
+    (slot storage)
+    (slot ram)
+    (slot stock))
