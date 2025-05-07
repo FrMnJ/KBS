@@ -7,6 +7,7 @@
     (order (order-id 6) (customer-email "bob@mail.com") (order-date "2023-10-06") (delivery-date "2023-10-10") (method-payment "cash"))
     (order (order-id 7) (customer-email "charlie@mail.com") (order-date "2023-10-07") (delivery-date "2023-10-11") (method-payment "debit-card"))
     (order (order-id 8) (customer-email "tyler@mail.com") (order-date "2023-10-08") (delivery-date "2023-10-12") (method-payment "credit-card"))
+    (order (order-id 9) (customer-email "alice@mail.com") (order-date "2023-10-09") (delivery-date "2023-10-13") (method-payment "credit-card"))
 )
 
 (deffacts order-items
@@ -36,4 +37,9 @@
     ; Discount for forza horizon 5 15%
     ; (videogame (id 56) (title "Forza Horizon 5") (platform "Xbox Series X") (price 59.99) (stock 14))
     (order-item (order-id 8) (product-id 56) (product-type "videogame") (quantity 1) (price-per-unit 59.99))
+    ;(computer (id 18) (brand "Razer") (model "Blade Stealth 13") (price 1799) (color "Black") (storage "512GB SSD") (ram "16GB") (stock 3))
+    (order-item (order-id 9) (product-id 18) (product-type "computer") (quantity 1) (price-per-unit 1799))
+    ; Discount in videogames 10% if Razer product is in the order and a video game is in the order
+    ;(videogame (id 69) (title "The Witcher 3: Wild Hunt") (platform "PC") (price 59.99) (stock 12))
+    (order-item (order-id 9) (product-id 69) (product-type "videogame") (quantity 1) (price-per-unit 59.99))
 )
